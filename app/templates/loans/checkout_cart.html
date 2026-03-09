@@ -1,0 +1,381 @@
+{% extends 'loans/base.html' %}
+{% load static %}
+{% block content %}
+<style>
+
+body{
+    background:linear-gradient(135deg,#fff9e6,#fff3cc);
+    font-family:'Inter',sans-serif;
+    margin:0;
+    padding:0;
+    }
+    
+    /* MAIN CONTAINER */
+    
+    .checkout-container{
+    max-width:1050px;
+    margin:60px auto;
+    padding:45px;
+    background:#ffffff;
+    border-radius:20px;
+    box-shadow:0 25px 70px rgba(0,0,0,0.15);
+    transition:0.3s;
+    }
+    
+    .checkout-container:hover{
+    transform:translateY(-4px);
+    box-shadow:0 30px 80px rgba(0,0,0,0.2);
+    }
+    
+    /* TITLE */
+    
+    .checkout-title{
+    text-align:center;
+    font-size:30px;
+    font-weight:700;
+    letter-spacing:4px;
+    color:#b8860b;
+    margin-bottom:35px;
+    position:relative;
+    }
+    
+    .checkout-title::after{
+    content:"";
+    width:80px;
+    height:3px;
+    background:linear-gradient(90deg,#FFD700,#b8860b);
+    display:block;
+    margin:12px auto 0;
+    border-radius:10px;
+    }
+    
+    /* PRODUCT TABLE */
+    
+    .checkout-table{
+    width:100%;
+    border-collapse:separate;
+    border-spacing:0 14px;
+    }
+    
+    .checkout-table tr{
+    background:#fffdf7;
+    border-radius:15px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.08);
+    transition:0.3s;
+    }
+    
+    .checkout-table tr:hover{
+    transform:scale(1.01);
+    box-shadow:0 12px 30px rgba(0,0,0,0.15);
+    }
+    
+    table td{
+    text-align:center;
+    padding:14px;
+    font-size:15px;
+    }
+    
+    table th{
+    text-align:center;
+    padding:14px;
+    font-weight:700;
+    font-size:17px;
+    color:#b8860b;
+    border-bottom:2px solid #FFD700;
+    }
+    
+    /* PRODUCT CELL */
+    
+    .product-cell{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    }
+    
+    .product-cell img{
+    width:70px;
+    height:70px;
+    border-radius:12px;
+    border:2px solid #FFD700;
+    object-fit:cover;
+    transition:0.3s;
+    }
+    
+    .product-cell img:hover{
+    transform:scale(1.1);
+    }
+    
+    /* TOTAL */
+    
+    .total-box{
+    text-align:right;
+    font-size:28px;
+    font-weight:700;
+    color:#b8860b;
+    margin-top:30px;
+    padding-top:15px;
+    border-top:2px dashed #FFD700;
+    }
+    
+    /* ADDRESS GRID */
+    
+    .address-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+    margin-top:35px;
+    }
+    
+    .input-group{
+    display:flex;
+    flex-direction:column;
+    }
+    
+    .input-group label{
+    font-weight:600;
+    margin-bottom:6px;
+    font-size:14px;
+    color:#444;
+    }
+    
+    .input-group input,
+    select{
+    padding:13px;
+    border-radius:10px;
+    border:1px solid #ddd;
+    font-size:14px;
+    transition:0.25s;
+    }
+    
+    .input-group input:focus,
+    select:focus{
+    border-color:#FFD700;
+    outline:none;
+    box-shadow:0 0 10px rgba(212,175,55,0.35);
+    }
+    
+    /* PLACE ORDER BUTTON */
+    
+    .place-btn{
+    width:100%;
+    margin-top:30px;
+    padding:16px;
+    border:none;
+    border-radius:35px;
+    background:linear-gradient(90deg,#FFD700,#b8860b);
+    font-size:17px;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.35s;
+    letter-spacing:1px;
+    }
+    
+    .place-btn:hover{
+    transform:scale(1.05);
+    box-shadow:0 12px 35px rgba(0,0,0,0.25);
+    }
+    
+    /* BACK BUTTON */
+    
+    .back-home{
+    position:absolute;
+    top:140px;
+    left:25px;
+    padding:10px 26px;
+    background:linear-gradient(90deg,#FFD700,#b8860b);
+    border-radius:25px;
+    font-weight:bold;
+    text-decoration:none;
+    color:black;
+    transition:0.3s;
+    }
+    
+    .back-home:hover{
+    transform:translateY(-2px);
+    color:white;
+    }
+    
+    /* MOBILE */
+    
+    @media(max-width:768px){
+    
+    .checkout-container{
+    margin:30px 15px;
+    padding:25px;
+    }
+    
+    .address-grid{
+    grid-template-columns:1fr;
+    }
+    
+    .checkout-table thead{
+    display:none;
+    }
+    
+    .checkout-table tr,
+    .checkout-table td{
+    display:block;
+    width:100%;
+    }
+    
+    .checkout-table td{
+    text-align:right;
+    position:relative;
+    padding-left:50%;
+    }
+    
+    .checkout-table td::before{
+    content:attr(data-label);
+    position:absolute;
+    left:15px;
+    font-weight:bold;
+    color:#b8860b;
+    text-align:left;
+    }
+
+}
+
+</style>
+
+
+<a href="javascript:history.back()" class="back-home">← Go Back</a>
+
+
+<div class="checkout-container">
+
+<div class="checkout-title">CHECKOUT</div>
+
+<form method="POST" action="{% url 'app:checkout_cart' %}" id="paymentForm">
+
+{% csrf_token %}
+
+<table class="checkout-table">
+
+<thead>
+
+<tr>
+<th>Product</th>
+<th>Price</th>
+<th>Quantity</th>
+<th>Subtotal</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for item in checkout_items %}
+
+<tr>
+
+<td class="product-cell">
+<a href="{% url 'app:loan_detail' item.product.id%}">
+
+<img src="{% static item.product.image %}">
+</a>
+
+<span>{{ item.product.name }}</span>
+
+</td>
+
+<td>₹{{ item.product.price }}</td>
+
+<td>{{ item.quantity }}</td>
+
+<td>₹{{ item.subtotal }}</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+
+<div class="total-box">
+
+Total : ₹{{ total }}
+
+</div>
+
+
+<!-- ADDRESS -->
+
+<div class="address-grid">
+
+<div class="input-group">
+<label>Door No</label>
+<input type="text" name="DoorNo" required>
+</div>
+
+<div class="input-group">
+<label>Street</label>
+<input type="text" name="Street" required>
+</div>
+
+<div class="input-group">
+<label>District</label>
+<input type="text" name="District" required>
+</div>
+
+<div class="input-group">
+<label>State</label>
+<input type="text" name="State" required>
+</div>
+
+<div class="input-group">
+<label>Pincode</label>
+<input type="" name="Pincode" required>
+</div>
+
+<div class="input-group">
+<label>Payment Method</label>
+<select name="payment" id="payment">
+<option value="UPI">UPI</option>
+<option value="Card">Credit / Debit Card</option>
+<option value="Cash on Delivery">Cash on Delivery</option>
+</select>
+</div>
+
+</div>
+
+
+<button type="submit" class="place-btn">
+
+Complete Purchase
+
+</button>
+
+</form>
+
+</div>
+
+
+<script>
+
+document.getElementById("paymentForm").addEventListener("submit", function(e){
+
+let paymentMethod=document.getElementById("payment").value;
+
+if(paymentMethod==="UPI"){
+
+e.preventDefault();
+
+window.location.href="https://pay.google.com/";
+
+}
+
+else if(paymentMethod==="Card"){
+
+e.preventDefault();
+
+window.location.href="https://www.visa.co.in/pay-with-visa/";
+
+}
+
+});
+
+</script>
+
+{% endblock %}

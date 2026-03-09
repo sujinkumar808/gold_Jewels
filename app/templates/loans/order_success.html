@@ -1,0 +1,174 @@
+{% extends 'loans/base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+/* =============================
+   PREMIUM SUCCESS PAGE
+============================= */
+
+/* Page background with a subtle shimmer */
+body {
+    background: radial-gradient(circle at center, #fffdf7 0%, #fff8e1 100%);
+    overflow-x: hidden;
+}
+
+.page-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 20px;
+    perspective: 1000px;
+}
+
+/* Luxury Success Ring */
+.success-icon-container {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin-bottom: 40px;
+}
+
+.success-ring {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #d4af37, #b8860b);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 30px rgba(184, 134, 11, 0.5);
+    animation: pulse-gold 2s infinite;
+    z-index: 2;
+}
+
+.success-ring span {
+    font-size: 60px;
+    color: white;
+    animation: check-bounce 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Floating Confetti Particles */
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #FFD700;
+    border-radius: 2px;
+    animation: confetti-fall 3s linear infinite;
+}
+
+/* Order Summary Card - Glassmorphism */
+.order-summary {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 30px;
+    padding: 40px;
+    width: 100%;
+    max-width: 550px;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.08);
+    transform: translateY(20px);
+    opacity: 0;
+    animation: slide-up 0.8s ease forwards 0.3s;
+}
+
+.summary-header {
+    border-bottom: 1px solid #f0d9a0;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.order-summary p {
+    font-size: 17px;
+    margin: 15px 0;
+    display: flex;
+    justify-content: space-between;
+    color: #444;
+}
+
+.order-summary strong {
+    color: #b8860b;
+}
+
+/* Animated Button */
+.continue-btn {
+    margin-top: 40px;
+    padding: 18px 45px;
+    background: #111;
+    color: #d4af37;
+    font-weight: bold;
+    border-radius: 50px;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border: 2px solid #111;
+    transition: all 0.4s ease;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+}
+
+.continue-btn:hover {
+    background: transparent;
+    color: #111;
+    border-color: #111;
+    transform: scale(1.05);
+}
+
+/* ANIMATIONS */
+@keyframes pulse-gold {
+    0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
+    70% { box-shadow: 0 0 0 25px rgba(212, 175, 55, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+}
+
+@keyframes check-bounce {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+}
+
+@keyframes slide-up {
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes confetti-fall {
+    0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+</style>
+
+<div class="page-wrapper">
+    <div class="confetti" style="left:10%; animation-delay: 0s; background: #d4af37;"></div>
+    <div class="confetti" style="left:30%; animation-delay: 1.5s; background: #FFD700;"></div>
+    <div class="confetti" style="left:50%; animation-delay: 0.5s; background: #b8860b;"></div>
+    <div class="confetti" style="left:70%; animation-delay: 2s; background: #FFD700;"></div>
+    <div class="confetti" style="left:90%; animation-delay: 1s; background: #d4af37;"></div>
+
+    <div class="success-icon-container">
+        <div class="success-ring">
+            <span>✔</span>
+        </div>
+    </div>
+
+    <h1 class="success-message" style="font-size: 42px; letter-spacing: -1px;">
+        Order Placed Successfully
+    </h1>
+    <p style="color: #888; margin-bottom: 40px; font-style: italic;">Thank you for choosing Golden Jewellery.</p>
+
+    <div class="order-summary">
+        <div class="summary-header">
+            <h4 style="color: #111; font-weight: bold;">Order Receipt</h4>
+        </div>
+        <p><span>Total Amount</span> <strong>₹{{ total }}</strong></p>
+        <p><span>Payment Method</span> <strong>{{ payment }}</strong></p>
+        <p><span>Delivery Address</span> <strong style="text-align: right; max-width: 200px;">{{ address }}</strong></p>
+        <div style="border-top: 1px solid #f0d9a0; margin-top: 20px; padding-top: 20px; text-align: center; color: #b8860b; font-size: 14px;">
+            Estimated Delivery: 3-5 Business Days
+        </div>
+    </div>
+
+    <a href="{% url 'app:home' %}" class="continue-btn">Continue Shopping</a>
+</div>
+{% endblock %}

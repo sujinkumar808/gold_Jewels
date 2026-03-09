@@ -1,0 +1,242 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gold Loan</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <style>
+        /* =============================
+           PREMIUM NAVBAR CONTAINER
+        ============================= */
+        .navbar {
+            padding: 5px 20px;
+            background: rgba(18, 18, 18, 0.95) !important; /* Deep dark frosted look */
+            backdrop-filter: blur(10px); /* Frosted glass effect */
+            border-bottom: 2px solid #d4af37; /* Thin gold line at bottom */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        /* Logo and Brand */
+        .logo-img {
+            height: 70px; /* Refined size for elegance */
+            width: auto;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+        
+        .navbar-brand:hover .logo-img {
+            transform: scale(1.05); /* Subtle pop on hover */
+        }
+
+        .navbar-brand span {
+            font-family: 'Georgia', serif;
+            font-weight: 700;
+            color: #f5d07a;
+            font-size: 1.6rem;
+            letter-spacing: 1px;
+            margin-left: 10px;
+            text-transform: uppercase;
+        }
+
+        /* Toggler Icon Customization */
+        .navbar-toggler {
+            border-color: #d4af37;
+        }
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3e%3Cpath stroke='rgba(212, 175, 55, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3e%3C/svg%3e") !important;
+        }
+
+        /* =============================
+           YOUR EXISTING LINK CSS (RETAINED)
+        ============================= */
+        .nav-link {
+            color: #fff;
+            font-weight: 600;
+            font-family: 'Georgia', serif;
+            font-size: 1rem;
+            margin: 0 12px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 3px;
+            background: #f5d07a; /* Matched to gold theme */
+            transition: width 0.3s;
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: #ffe066;
+            text-shadow: 0 0 5px rgba(255, 223, 0, 0.8);
+        }
+
+        .nav-link.active {
+            color: #ffe066;
+            text-shadow: 0 0 6px rgba(255, 223, 0, 1);
+        }
+        /* 1. Ensure the height of the entire window is used */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+/* 2. Turn the body into a flex column */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* 3. This wrapper pushes the footer to the bottom */
+main, .page-wrapper, .main-wrapper {
+    flex: 1 0 auto; /* This tells the content to 'grow' and fill the empty space */
+}
+
+/* 4. The footer stays at the bottom and doesn't shrink */
+footer {
+    flex-shrink: 0;
+    background-color: #111;
+    color: #fff;
+    padding: 60px 20px;
+    border-top: 4px solid #d4af37;
+    width: 100%;
+}
+/* ================== Footer ================== */
+footer {
+    background-color: #111;
+    color: #eaeaea;
+    padding: 60px 0 20px;
+    margin-top: 80px;
+    border-top: 5px solid #d4af37;
+}
+
+footer h5 {
+    color: #d4af37;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+/* ================== Social Icons ================== */
+.social-icons{
+    margin-top:15px;
+}
+
+.social-icons a{
+    color:#d4af37;
+    font-size:28px;
+    margin-right:15px;
+    transition:0.3s;
+}
+
+.social-icons a:hover{
+    color:#ffffff;
+    transform:scale(1.2);
+    text-shadow:0 0 10px gold;
+}
+
+footer a:hover {
+    color: #fdb100 !important;
+}
+
+        /* Mobile Adjustments */
+        @media (max-width: 991px) {
+            .navbar-collapse {
+                background: #1a1a1a;
+                margin-top: 10px;
+                padding: 20px;
+                border-radius: 15px;
+                border: 1px solid #d4af37;
+            }
+            .nav-link {
+                margin: 10px 0;
+            }
+            .logo-img {
+                height: 55px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="{% url 'app:home' %}">
+                <img src="{% static 'img/mario_logo.png' %}" alt="Logo" class="logo-img">
+                <span class="d-none d-sm-inline">Golden Jewels</span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navmenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'app:home' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'app:faq' %}">FAQ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'app:gold_rate' %}">Gold Rate</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'app:about' %}">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'app:contact' %}">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <footer>
+        <div class="container">
+            <div class="row text-center text-md-start">
+                <div class="col-md-4 mb-3">
+                    <h5>Golden Jewellery</h5>
+                    <p>Jewelry has the power to be this one little thing that can make you feel unique.</p>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'app:home' %}" class="text-light text-decoration-none">Home</a></li>
+                        <li><a href="{% url 'app:gold_rate' %}" class="text-light text-decoration-none">Gold Rate</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5>Contact</h5>
+                    <p>Email: mariogold@jewellery.com</P> 
+                    <P>Phone: +91 93441 80221</p>
+                    <p>Rajajinagar, Bangalore, India</p>
+                    <div class="social-icons">
+                        <a href="https://www.whatsapp.com/" target="_blank">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                    
+                        <a href="https://www.instagram.com/my_chits/?__d=1https%3A%2F%2Fwww.instagram.com%2Fsyjobodygoals%2F" target="_blank">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                    
+                        <a href="https://www.facebook.com/Mychitfund/" target="_blank">
+                            <i class="fa-brands fa-facebook"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <hr class="bg-light">
+            <div class="text-center"><p>&copy; 2026 GOLDEN JEWELLERY</p></div>
+        </div>
+    </footer>
+</body>
+</html>

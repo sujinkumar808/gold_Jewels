@@ -1,0 +1,389 @@
+{% extends 'loans/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+/* ================== Global & Typography ================== */
+body {
+    overflow-x: hidden;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+    background: radial-gradient(circle at top, #fffdf7 0%, #fff8e1 40%, #f7e7b4 100%);
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+}
+
+/* Gold Glow Effect */
+body::before{
+    content:"";
+    position:fixed;
+    top:-200px;
+    right:-200px;
+    width:500px;
+    height:500px;
+    background: radial-gradient(circle, rgba(212,175,55,0.25), transparent 70%);
+    z-index:-1;
+}
+
+/* Second Glow */
+body::after{
+    content:"";
+    position:fixed;
+    bottom:-200px;
+    left:-200px;
+    width:500px;
+    height:500px;
+    background: radial-gradient(circle, rgba(212,175,55,0.18), transparent 70%);
+    z-index:-1;
+}
+
+
+h2, h3, h5, .card-title, footer {
+    font-family: 'Georgia', serif;
+}
+
+.section-title {
+    color: #b8860b; 
+    margin: 60px 0 30px;
+    text-align: center;
+    font-size: 2.8rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    position: relative;
+}
+
+/* Subtle line under headings */
+.section-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: #d4af37;
+    margin: 10px auto;
+}
+
+/* ================== Carousel ================== */
+.carousel { margin-top: 0; }
+
+.carousel-inner {
+    height: 550px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.carousel-inner img {
+    height: 550px;
+    width: 100%;
+    object-fit: cover;
+}
+
+
+/* ================== Premium Cards ================== */
+.card-hover {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border: none;
+    border-radius: 0; /* Square edges look more "designer" for jewelry */
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.card-hover:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(184, 134, 11, 0.2);
+}
+
+.img-container {
+    overflow: hidden;
+    height: 220px;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.card-hover:hover .card-img-top {
+    transform: scale(1.1);
+}
+
+.card-body {
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.card-title {
+    color: #b8860b;
+    font-weight: bold;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.card-text {
+    color: #666;
+    font-style: italic;
+    font-size: 0.85rem;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.card-price {
+    color: #222;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-top: auto; /* Forces price to bottom */
+    padding-top: 15px;
+    border-top: 1px dotted #d4af37;
+}
+.category-section{
+    padding:60px 0;
+    background:#f8f8f8;
+    text-align:center;
+}
+
+.category-title{
+    font-size:30px;
+    letter-spacing:2px;
+    font-family: 'Georgia', serif;
+    color: #b8860b; 
+    margin: 10px 0 30px;
+    text-align: center;
+    font-size: 2.8rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    position: relative;
+}
+
+.category-grid{
+    width:90%;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:25px;
+}
+
+.category-box{
+    position:relative;
+    overflow:hidden;
+}
+
+.category-box img{
+    width:100%;
+    height:320px;
+    object-fit:cover;
+    transition:0.5s;
+}
+
+.category-box:hover img{
+    transform:scale(1.1);
+}
+
+
+.category-overlay p{
+    font-size:14px;
+    margin:0;
+}
+
+.category-overlay h3{
+    margin:5px 0 0 0;
+    font-size:22px;
+}
+
+
+</style>
+
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="{% static 'img/ph3.jpg' %}" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'img/ph1.jpg' %}" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'img/ph2.jpg' %}" class="d-block w-100" alt="...">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  {% load static %}
+  <!-- Carousel End -->
+
+<div class="container mt-5">
+    
+    <h2 class="section-title">Girls' Collection</h2>
+    <div class="row g-4 justify-content-center">
+        <div class="col-6 col-md-4 col-lg-2 d-flex">
+            <a href="{% url 'app:loan_detail' 1 %}" class="text-decoration-none w-100">
+                <div class="card card-hover">
+                    <div class="img-container"><img src="{% static 'img/myring.jpg' %}" class="card-img-top"></div>
+                    <div class="card-body">
+                        <h5 class="card-title">Rings</h5>
+                        <p class="card-text">"Reality is finally better than your dreams."</p>
+                        <h6 class="card-price">₹5,50,000</h6>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2 d-flex">
+            <a href="{% url 'app:loan_detail' 2 %}" class="text-decoration-none w-100">
+                <div class="card card-hover">
+                    <div class="img-container"><img src="{% static 'img/bracelet.jpg' %}" class="card-img-top"></div>
+                    <div class="card-body">
+                        <h5 class="card-title">Bracelet</h5>
+                        <p class="card-text">"A little bit of gold adds elegance."</p>
+                        <h6 class="card-price">₹10,00,000</h6>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2 d-flex">
+            <a href="{% url 'app:loan_detail' 3 %}" class="text-decoration-none w-100">
+                <div class="card card-hover">
+                    <div class="img-container"><img src="{% static 'img/earing.jpg' %}" class="card-img-top"></div>
+                    <div class="card-body">
+                        <h5 class="card-title">Earrings</h5>
+                        <p class="card-text">"Always wear earrings at the very least."</p>
+                        <h6 class="card-price">₹7,50,000</h6>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2 d-flex">
+            <a href="{% url 'app:loan_detail' 4 %}" class="text-decoration-none w-100">
+                <div class="card card-hover">
+                    <div class="img-container"><img src="{% static 'img/neck.jpg' %}" class="card-img-top"></div>
+                    <div class="card-body">
+                        <h5 class="card-title">Necklace</h5>
+                        <p class="card-text">"Colour gives jewels their worth."</p>
+                        <h6 class="card-price">₹6,00,000</h6>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2 d-flex">
+            <a href="{% url 'app:loan_detail' 5 %}" class="text-decoration-none w-100">
+                <div class="card card-hover">
+                    <div class="img-container"><img src="{% static 'img/bang.jpg' %}" class="card-img-top"></div>
+                    <div class="card-body">
+                        <h5 class="card-title">Bangles</h5>
+                        <p class="card-text">"Wearing heritage proudly."</p>
+                        <h6 class="card-price">₹1,50,000</h6>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2 d-flex">
+            <a href="{% url 'app:loan_detail' 6 %}" class="text-decoration-none w-100">
+                <div class="card card-hover">
+                    <div class="img-container"><img src="{% static 'img/kolusugirl.jpg' %}" class="card-img-top"></div>
+                    <div class="card-body">
+                        <h5 class="card-title">Ankle Chain</h5>
+                        <p class="card-text">"Heritage in every step."</p>
+                        <h6 class="card-price">₹5,50,000</h6>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <h2 class="section-title">Boys' Collection</h2>
+    <div class="row g-4 justify-content-center">
+        <div class="col-6 col-md-4 col-lg-2 d-flex">
+            <a href="{% url 'app:loan_detail' 7 %}" class="text-decoration-none w-100">
+                <div class="card card-hover">
+                    <div class="img-container"><img src="{% static 'img/ringboy.jpg' %}" class="card-img-top"></div>
+                    <div class="card-body">
+                        <h5 class="card-title">Mens Ring</h5>
+                        <p class="card-text">"Bold and Timeless."</p>
+                        <h6 class="card-price">₹1,50,000</h6>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2 d-flex">
+            <a href="{% url 'app:loan_detail' 8 %}" class="text-decoration-none w-100">
+                <div class="card card-hover">
+                    <div class="img-container"><img src="{% static 'img/braceletboy.jpg' %}" class="card-img-top"></div>
+                    <div class="card-body">
+                        <h5 class="card-title">Bracelet</h5>
+                        <p class="card-text">"Define your style."</p>
+                        <h6 class="card-price">₹7,50,000</h6>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2 d-flex">
+            <a href="{% url 'app:loan_detail' 9 %}" class="text-decoration-none w-100">
+                <div class="card card-hover">
+                    <div class="img-container"><img src="{% static 'img/studboy.jpg' %}" class="card-img-top"></div>
+                    <div class="card-body">
+                        <h5 class="card-title">Stud</h5>
+                        <p class="card-text">"Subtle elegance for him."</p>
+                        <h6 class="card-price">₹ 5,50,000</h6>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2 d-flex">
+            <a href="{% url 'app:loan_detail' 10 %}" class="text-decoration-none w-100">
+                <div class="card card-hover h-100">
+                    <div class="img-container"><img src="{% static 'img/chain_boy.jpg' %}" class="card-img-top"></div>
+                    <div class="card-body">
+                        <h5 class="card-title">Chain</h5>
+                        <p class="card-text">"A mark of heritage."</p>
+                        <h6 class="card-price">₹2,30,000</h6>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2 d-flex">
+            <a href="{% url 'app:loan_detail' 11 %}" class="text-decoration-none w-100">
+                <div class="card card-hover">
+                    <div class="img-container"><img src="{% static 'img/kappuboy.jpg' %}" class="card-img-top"></div>
+                    <div class="card-body">
+                        <h5 class="card-title">Wristband</h5>
+                        <p class="card-text">"Strong and sophisticated."</p>
+                        <h6 class="card-price">₹3,20,000</h6>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2 d-flex">
+            <a href="{% url 'app:loan_detail' 12 %}" class="text-decoration-none w-100">
+                <div class="card card-hover">
+                    <div class="img-container"><img src="{% static 'img/dollerboy.jpg' %}" class="card-img-top"></div>
+                    <div class="card-body">
+                        <h5 class="card-title">Cross Dollar</h5>
+                        <p class="card-text">"The ultimate statement."</p>
+                        <h6 class="card-price">₹75,000</h6>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

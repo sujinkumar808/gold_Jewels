@@ -1,0 +1,328 @@
+{% extends 'loans/base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+body{
+font-family:'Poppins',sans-serif;
+background:linear-gradient(135deg,#fff7cc,#fffdf5,#fff3cc);
+margin:0;
+min-height:100vh;
+}
+
+/* CONTAINER */
+
+.checkout-container{
+max-width:1150px;
+margin:60px auto;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:40px;
+padding:20px;
+}
+
+/* GLASS CARD */
+
+.card{
+background:rgba(255,255,255,0.75);
+backdrop-filter:blur(20px);
+border-radius:20px;
+padding:35px;
+box-shadow:0 20px 50px rgba(0,0,0,0.12);
+border:1px solid rgba(255,215,0,0.45);
+transition:all 0.35s ease;
+position:relative;
+overflow:hidden;
+}
+
+/* gold shine effect */
+.card::before{
+content:"";
+position:absolute;
+top:-50%;
+left:-50%;
+width:200%;
+height:200%;
+background:linear-gradient(120deg,transparent,rgba(255,215,0,0.2),transparent);
+transform:rotate(25deg);
+opacity:0;
+transition:0.5s;
+}
+
+.card:hover::before{
+opacity:1;
+}
+
+.card:hover{
+transform:translateY(-6px);
+box-shadow:0 25px 60px rgba(0,0,0,0.2);
+}
+
+/* PRODUCT IMAGE */
+
+.product-img{
+width:220px;
+margin:auto;
+display:block;
+border-radius:18px;
+border:3px solid #FFD700;
+box-shadow:0 8px 25px rgba(0,0,0,0.15);
+transition:0.35s;
+}
+
+.product-img:hover{
+transform:scale(1.07) rotate(1deg);
+}
+
+/* TITLES */
+
+h2{
+font-family:'Georgia',serif;
+color:#b8860b;
+margin-bottom:20px;
+font-size:26px;
+letter-spacing:1px;
+position:relative;
+}
+
+h2::after{
+content:"";
+width:60px;
+height:3px;
+background:linear-gradient(90deg,#FFD700,#b8860b);
+display:block;
+margin-top:8px;
+border-radius:10px;
+}
+
+/* INPUTS */
+
+.input-group{
+display:flex;
+flex-direction:column;
+margin-bottom:16px;
+}
+
+.input-group label{
+font-size:14px;
+margin-bottom:5px;
+color:#444;
+font-weight:500;
+}
+
+.input-group input,
+.input-group textarea,
+.input-group select{
+padding:13px;
+border-radius:10px;
+border:1px solid #ddd;
+font-size:15px;
+background:white;
+transition:0.3s;
+}
+
+.input-group input:focus,
+textarea:focus,
+select:focus{
+border-color:#FFD700;
+outline:none;
+box-shadow:0 0 12px rgba(212,175,55,0.35);
+}
+
+/* ADDRESS GRID */
+
+.address-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:16px;
+}
+
+/* TOTAL BOX */
+
+.total-box{
+margin-top:22px;
+font-size:24px;
+font-weight:600;
+color:#b8860b;
+border-top:2px dashed #FFD700;
+padding-top:12px;
+}
+
+/* PLACE ORDER BUTTON */
+
+.place-btn{
+width:100%;
+margin-top:22px;
+padding:16px;
+border:none;
+border-radius:14px;
+background:linear-gradient(90deg,#FFD700,#c79c00);
+font-size:17px;
+font-weight:600;
+cursor:pointer;
+transition:0.35s;
+letter-spacing:0.5px;
+}
+
+.place-btn:hover{
+transform:scale(1.05);
+box-shadow:0 12px 35px rgba(212,175,55,0.6);
+}
+
+/* BACK BUTTON */
+
+.back-home{
+display:inline-block;
+position:absolute;
+top:150px;
+left:20px;
+padding:12px 28px;
+background:linear-gradient(90deg,#FFD700,#b8860b);
+color:black;
+font-weight:bold;
+border-radius:30px;
+text-decoration:none;
+transition:0.3s;
+z-index:1000;
+}
+
+.back-home:hover{
+background:#b8860b;
+color:white;
+transform:scale(1.06);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+.checkout-container{
+grid-template-columns:1fr;
+gap:30px;
+}
+
+.address-grid{
+grid-template-columns:1fr;
+}
+
+.product-img{
+width:180px;
+}
+
+.back-home{
+position:static;
+margin-bottom:20px;
+display:inline-block;
+}
+
+footer .row{
+text-align:center;
+}
+
+footer .col-md-4{
+margin-bottom:20px;
+}
+
+}
+    
+</style>
+<a href="javascript:history.back()" class="back-home">← Go Back</a>
+<div class="checkout-container">
+
+    <!-- PRODUCT CARD -->
+    <div class="card">
+    
+    <h2>Order Summary</h2>
+    
+    <img src="{% static product.image %}" class="product-img">
+    
+    <h3>{{ product.name }}</h3>
+    
+    <p>Price : ₹ <span id="price">{{ product.price }}</span></p>
+    
+    <div class="total-box">
+    Total : ₹ <span id="total">{{ product.price }}</span>
+    </div>
+    
+    </div>
+    
+    
+    <!-- ADDRESS + PAYMENT -->
+    <div class="card">
+    
+    <h2>Delivery Details</h2>
+    
+    <form method="POST" id="paymentForm">
+    {% csrf_token %}
+    
+    <div class="address-grid">
+    
+    <div class="input-group">
+    <label>Door No</label>
+    <input type="text" name="doorno" required>
+    </div>
+    
+    <div class="input-group">
+    <label>Street</label>
+    <input type="text" name="street" required>
+    </div>
+    
+    <div class="input-group">
+    <label>District</label>
+    <input type="text" name="district" required>
+    </div>
+    
+    <div class="input-group">
+    <label>State</label>
+    <input type="text" name="state" required>
+    </div>
+    
+    <div class="input-group">
+    <label>Pincode</label>
+    <input  name="pincode" required>
+    </div>
+    
+    <div class="input-group">
+    <label>Quantity</label>
+    <input type="number" name="quantity" value="1" min="1">
+    </div>
+    
+    </div>
+    
+    <div class="input-group">
+    <label>Payment Method</label>
+    
+    <select name="payment" id="payment">
+    <option value="UPI">UPI</option>
+    <option value="Card">Credit / Debit Card</option>
+    <option value="Cash on Delivery">Cash on Delivery</option>
+    </select>
+    
+    </div>
+    
+    
+    <a href="{% url 'app:buy_now' product.id%}">
+        <button class="place-btn">Place Order</button>
+    </a>
+    
+    </form>
+    
+    </div>
+    
+    </div>
+
+<!-- JS for dynamic total -->
+<script>
+    const quantityInput = document.querySelector('input[name="quantity"]');
+    const totalSpan = document.getElementById('total');
+    const price = parseFloat(document.getElementById('price').textContent);
+
+    quantityInput.addEventListener('input', function() {
+        let qty = parseInt(this.value) || 1;
+        totalSpan.textContent = (price * qty).toFixed(2);
+    });
+</script>
+{% endblock %}

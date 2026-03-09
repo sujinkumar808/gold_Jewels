@@ -1,0 +1,86 @@
+{
+    "1": {
+        "id": 1,
+        "name": "RINGS",
+        "price": 550000,
+        "image": "img/myring.jpg",
+        "description": "Beautiful luxury gold rings crafted for timeless elegance."
+    },
+    "2": {
+        "id": 2,
+        "name": "BRACELET",
+        "price": 1000000,
+        "image": "img/bracelet.jpg",
+        "description": "Premium gold bracelet with stunning handcrafted design."
+    },
+    "3": {
+        "id": 3,
+        "name": "EARINGS",
+        "price": 750000,
+        "image": "img/earing.jpg",
+        "description": "Elegant temple earrings perfect for weddings and festivals."
+    },
+    "4": {
+        "id": 4,
+        "name": "NECKLACE",
+        "price": 600000,
+        "image": "img/neck.jpg",
+        "description": "Royal necklace inspired by traditional temple jewellery."
+    },
+    "5": {
+        "id": 5,
+        "name": "BANGELS",
+        "price": 600000,
+        "image": "img/bang.jpg",
+        "description": "Wearing heritage proudly."
+    },
+    "6": {
+        "id": 6,
+        "name": "ANKLE CHAIN",
+        "price": 550000,
+        "image": "img/kolusugirl.jpg",
+        "description": "Heritage in every step."
+    },
+    "7": {
+        "id": 7,
+        "name": "RING",
+        "price": 150000,
+        "image": "img/ringboy.jpg",
+        "description": "Bold and Timeless."
+    },
+    "8": {
+        "id": 8,
+        "name": "BRACELET",
+        "price": 750000,
+        "image": "img/braceletboy.jpg",
+        "description": "Define your style."
+    },
+    "9": {
+        "id": 9,
+        "name": "STUD",
+        "price": 550000,
+        "image": "img/studboy.jpg",
+        "description": "Subtle elegance for him."
+    },
+    "10": {
+        "id": 10,
+        "name": "CHAIN",
+        "price": 230000,
+        "image": "img/chain_boy.jpg",
+        "description": "A mark of heritage."
+    },
+    "11": {
+        "id": 11,
+        "name": "WRISTBAND",
+        "price": 320000,
+        "image": "img/kappuboy.jpg",
+        "description": "Strong and sophisticated."
+    },
+    "12": {
+        "id": 12,
+        "name": "CROSS DOLLER",
+        "price": 75000,
+        "image": "img/dollerboy.jpg",
+        "description": "The ultimate statement."
+    }
+}

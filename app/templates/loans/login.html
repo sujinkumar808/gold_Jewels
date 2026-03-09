@@ -1,0 +1,157 @@
+{% extends 'loans/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:linear-gradient(120deg,#fff7cc,#fffdf5);
+}
+
+/* Center Layout */
+
+.otp-wrapper{
+    height:80vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* Glass Card */
+
+.otp-card{
+
+    width:380px;
+    padding:40px;
+
+    background:rgba(255,255,255,0.75);
+    backdrop-filter:blur(12px);
+
+    border-radius:20px;
+
+    box-shadow:0 20px 50px rgba(0,0,0,0.15);
+
+    border:1px solid rgba(212,175,55,0.4);
+
+    text-align:center;
+
+    transition:0.3s;
+}
+
+.otp-card:hover{
+    transform:translateY(-5px);
+}
+
+/* Title */
+
+.otp-title{
+    font-size:26px;
+    color:#b8860b;
+    font-weight:600;
+    margin-bottom:10px;
+}
+
+.otp-sub{
+    font-size:14px;
+    color:#777;
+    margin-bottom:25px;
+}
+
+/* Input */
+
+.otp-input{
+
+    width:100%;
+    padding:14px;
+
+    border-radius:10px;
+    border:1px solid #ddd;
+
+    font-size:15px;
+
+    margin-bottom:20px;
+
+    transition:0.3s;
+}
+
+.otp-input:focus{
+
+    border-color:#d4af37;
+
+    outline:none;
+
+    box-shadow:0 0 10px rgba(212,175,55,0.4);
+}
+
+/* Button */
+
+.otp-btn{
+
+    width:100%;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:12px;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    background:linear-gradient(90deg,#FFD700,#c79c00);
+
+    transition:0.3s;
+}
+
+.otp-btn:hover{
+
+    transform:scale(1.04);
+
+    box-shadow:0 10px 30px rgba(212,175,55,0.5);
+}
+
+/* Mobile */
+
+@media(max-width:500px){
+
+    .otp-card{
+        width:90%;
+        padding:30px;
+    }
+
+}
+
+</style>
+
+
+<div class="otp-wrapper">
+
+    <div class="otp-card">
+
+        <div class="otp-title">Phone Verification</div>
+        <div class="otp-sub">Enter your phone number to receive OTP</div>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <input type="text" name="phone" class="otp-input" placeholder="Enter phone number">
+
+            <button type="submit" class="otp-btn">
+                Send OTP
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

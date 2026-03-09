@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Verify OTP</title>
+    <style>
+        body{
+            font-family: Arial;
+            background:#fff8e1;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+        }
+
+        .otp-box{
+            background:white;
+            padding:30px;
+            border-radius:10px;
+            box-shadow:0 0 10px rgba(0,0,0,0.1);
+            text-align:center;
+            width:300px;
+        }
+
+        input{
+            width:100%;
+            padding:10px;
+            margin-top:10px;
+            border:1px solid #ccc;
+            border-radius:5px;
+        }
+
+        button{
+            margin-top:15px;
+            width:100%;
+            padding:10px;
+            background:#d4af37;
+            border:none;
+            color:white;
+            font-size:16px;
+            border-radius:5px;
+            cursor:pointer;
+        }
+
+        button:hover{
+            background:#b8962e;
+        }
+
+        .error{
+            color:red;
+            margin-top:10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="otp-box">
+
+<h2>Verify OTP</h2>
+
+<p>OTP sent to {{ phone }}</p>
+
+<form method="POST" action="{% url 'app:verify_otp' %}">
+    {% csrf_token %}
+
+    <input type="hidden" name="phone" value="{{ phone }}">
+
+    <input type="text" name="otp" placeholder="Enter OTP" required>
+
+    <button type="submit">Verify OTP</button>
+</form>
+
+{% if error %}
+<p class="error">{{ error }}</p>
+{% endif %}
+
+</div>
+
+</body>
+</html>
